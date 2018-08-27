@@ -1,0 +1,62 @@
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:petrov.kristiyan="urn:oasis:names:tc:xliff:document:1.2">
+
+    <PreferenceCategory android:title="УВЕДОМЛЕНИЯ">
+        <Preference
+            android:defaultValue="Default value"
+            android:icon="@drawable/ic_notifications"
+            android:key="edit_text_preference_1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Push-уведомления" />
+        <PreferenceScreen
+            android:icon="@drawable/ic_do_not_disturb_alt_black_24dp"
+            android:defaultValue="Default value"
+            android:key="edit_text_preference_2"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/dnt">
+        </PreferenceScreen>
+        <com.example.mipro.netschool.Settings.Push.Push android:key="asd"></com.example.mipro.netschool.Settings.Push.Push>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/main">
+        <PreferenceScreen
+            android:defaultValue="Default value"
+            android:icon="@drawable/ic_timetable1"
+            android:key="edit_text_preference_3"
+            android:selectAllOnFocus="true"
+            android:title="@string/timetable" >
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:defaultValue="Default value"
+            android:icon="@drawable/ic_color_lens_black_24dp"
+            android:key="edit_text_preference_4"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/color_scheme" >
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/password">
+        <PreferenceScreen
+            android:icon="@drawable/ic_vpn_key_black_24dp"
+            android:defaultValue="Default value"
+            android:key="edit_text_preference_5"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/chaange_pass" >
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Информация">
+        <PreferenceScreen
+            android:icon="@drawable/ic_star_black_24dp"
+            android:defaultValue="Default value"
+            android:key="edit_text_preference_6"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/subscribe1" ></PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

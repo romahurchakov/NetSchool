@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/timeOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="13dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/timeTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="75dp"
+        app:srcCompat="@android:drawable/dark_header" />
+
+    <TextView
+        android:id="@+id/resources"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/timeOne"
+        android:layout_marginStart="91dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/classRoom"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/resources"
+        android:layout_alignTop="@+id/timeTwo"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/checker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/timeOne"
+        android:layout_marginEnd="29dp"
+        android:text="TextView" />
+
+</RelativeLayout>

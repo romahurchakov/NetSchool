@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/questDone"
+        android:icon="@app:drawable/quest_done"
+        android:title="@string/quest_done"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="quest_completed" type="drawable">@drawable/quest_completed</item>
+    <item name="quest_failed" type="drawable">@drawable/quest_failed</item>
+    <item name="quest_file" type="drawable">@android:drawable/ic_menu_save</item>
+    <item name="quest_done" type="drawable">@drawable/done</item>
+    <item name="quest_undone" type="drawable">@drawable/undone</item>
+    <item name="diary_calendar" type="drawable">@drawable/calendar</item>
+    <item name="iconView" type="id"/>
+</resources>

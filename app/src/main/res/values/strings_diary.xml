@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_diary">Подробности задания</string>
+    <string name="empty_data">Нет данных</string>
+    <string name="quest_done">Отметить как выполняющееся</string>
+    <string name="quest_undone">Отметить как выполненное</string>
+    <string name="diary_calendar">Выбрать неделю</string>
+</resources>

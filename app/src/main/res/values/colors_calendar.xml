@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="calendarLight">#eee</color>
+    <color name="calendarDark">#ddd</color>
+    <color name="calendarToday">#ffaa88</color>
+    <color name="calendarCurrent">#ffd7be</color>
+    <color name="calendarWeekNum">#f22</color>
+</resources>

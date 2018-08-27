@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorDiaryDate">#ededed</color>
+    <color name="colorWeekDayBckgrnd">#ededed</color>
+    <color name="colorDiaryLesson">#434343</color>
+
+    <color name="colorHomeWork">#29ca4f</color>
+    <color name="colorContrWork">#ff0000</color>
+    <color name="colorLetters">#ffe32a</color>
+    <color name="colorDiaryFail">#00c8ff</color>
+
+    <color name="colorQuestNewBckgrnd">#0000bb</color>
+    <color name="colorQuestNewTxt">#ffffff</color>
+</resources>

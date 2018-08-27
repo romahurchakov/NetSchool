@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/calendar_title"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="Month, YEAR"
+        android:gravity="center"
+        android:textColor="@color/colorDiaryLesson"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/week_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center"
+            android:textColor="@color/colorDiaryLesson"
+            android:textSize="15sp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@+id/week_days"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="7">
+
+            <TextView
+                android:id="@+id/md"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="ПН"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/ts"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="ВТ"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/wd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="СР"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tr"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="ЧТ"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/fd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="ПТ"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/st"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="СБ"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/sn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="ВС"
+                android:gravity="center"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_calendar_weeks"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </ListView>
+
+</LinearLayout>

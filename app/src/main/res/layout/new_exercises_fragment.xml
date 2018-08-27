@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="139dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ОЦЕНКИ" />
+
+            <LinearLayout
+                android:id="@+id/oc_l_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Все" />
+
+                <ImageView
+                    android:id="@+id/oc_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_done_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/oc_l_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Только важные" />
+
+                <ImageView
+                    android:id="@+id/oc_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_done_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/oc_l_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Никакие" />
+
+                <ImageView
+                    android:id="@+id/oc_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_done_black_24dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12sp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ЗАДАНИЯ" />
+
+            <LinearLayout
+                android:id="@+id/ex_l_1"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Все" />
+
+                <ImageView
+                    android:id="@+id/ex_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_done_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ex_l_2"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Только домашние задания" />
+
+                <ImageView
+                    android:id="@+id/ex_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_done_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ex_l_3"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Никакие" />
+
+                <ImageView
+                    android:id="@+id/ex_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_done_black_24dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

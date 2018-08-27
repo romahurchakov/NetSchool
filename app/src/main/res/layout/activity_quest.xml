@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_marginBottom="12dp"-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/questBox"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lessonWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lesson"
+                android:gravity="start"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/typeWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/titleWork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorDiaryLesson"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/descriptionWork"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textColor="@color/colorDiaryLesson"
+            android:textSize="14sp"
+            android:autoLink="web"
+            android:linksClickable="true"/>
+
+        <TextView
+            android:id="@+id/signWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signature"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/llFileWork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/fileImWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/quest_file"/>
+
+            <TextView
+                android:id="@+id/fileTxWork"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="File.exp"
+                android:textColor="@color/colorDiaryLesson"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
