@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mipro.netschool.Client.Client;
+import com.example.mipro.netschool.Log;
 import com.example.mipro.netschool.R;
 import com.example.mipro.netschool.Settings.Push.Push;
 
 import java.util.ArrayList;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
-
-import static com.example.mipro.netschool.MainActivity.LOG_TAG;
 
 public class Settings extends ListFragment {
     String data[] = {"Уведомление", "Push", "Не беспокоить", "Основные", "Расписание", "Цветовая схема",
@@ -55,6 +53,7 @@ public class Settings extends ListFragment {
         color_array = new ArrayList<String>();
         colorPicker = new ColorPicker(getActivity());
         initColors(color_array);
+        Log.v("kek");
     }
 
     private void initColors(ArrayList<String> array) {
@@ -80,7 +79,6 @@ public class Settings extends ListFragment {
         super.onResume();
         if (mSettings.contains(APP_PREFERENCES_COLOR)) {
             current_color = mSettings.getInt(APP_PREFERENCES_COLOR, -1);
-            Log.e(LOG_TAG, "123" +current_color);
         }
     }
 
