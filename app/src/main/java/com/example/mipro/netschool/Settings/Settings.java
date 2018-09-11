@@ -1,6 +1,7 @@
 package com.example.mipro.netschool.Settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,14 +16,24 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.mipro.netschool.Client.Client;
+import com.example.mipro.netschool.Autentification.Autentification;
+import com.example.mipro.netschool.Client.APIservice;
+import com.example.mipro.netschool.Client.Pojo.School;
 import com.example.mipro.netschool.Log;
 import com.example.mipro.netschool.R;
 import com.example.mipro.netschool.Settings.Push.Push;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.mipro.netschool.MainActivity.LOG_TAG;
 
 public class Settings extends ListFragment {
     String data[] = {"Уведомление", "Push", "Не беспокоить", "Основные", "Расписание", "Цветовая схема",
@@ -125,8 +136,7 @@ public class Settings extends ListFragment {
             ft.addToBackStack("stack");
             ft.commit();
         } else if (position == 9) {
-            Client myClient = new Client("77.73.26.195", 8000);
-            myClient.execute("set");
+
         } else if (position == 10) {
 
         }

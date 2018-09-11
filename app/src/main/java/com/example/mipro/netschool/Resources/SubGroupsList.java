@@ -94,14 +94,14 @@ public class SubGroupsList extends ListFragment {
             this.context = context;
         }
 
-        /*@Override
+        @Override
         public boolean isEnabled(int position) {
-            if (files.get(position).getIsFirst()) {
+            if (files.get(position).getResources().equals("special")) {
                 return false;
             } else {
                 return true;
             }
-        }*/
+        }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {

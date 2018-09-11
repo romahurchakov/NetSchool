@@ -1,92 +1,223 @@
 package com.example.mipro.netschool.Client;
 
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import com.example.mipro.netschool.Client.Pojo.LoginRequst;
+import com.example.mipro.netschool.Client.Pojo.LoginResponse;
+import com.example.mipro.netschool.Client.Pojo.School;
+import com.example.mipro.netschool.Log;
 
-import com.google.gson.Gson;
+import java.util.concurrent.TimeUnit;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
+import io.reactivex.Observable;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Класс реализует общение с сервером
+ * Класс содержит закомментированные версии методов запросов,
+ * т.к. иначе возникают проблемы с потоками
+ *  private Disposable disposable;
+ *  private SharedPreferences mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+ *                  или
+ *  private SharedPreferences mSettings = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+ *  private void signIn(String login, String password, int id, String token, int systemType) {
+ *      disposable = Client.getInstance()
+ *      .signIn(new LoginRequst(login, password, id, token, systemType))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new DisposableObserver<Response<T>>() {
 
-public class Client extends AsyncTask<String, Void, String> {
+            @Override
+            public void onNext(Response<T> response) {
+                if (response.isSuccessful()) {
+                    Client.getInstance().responseHandler("" + response.code(), "signIn", "");
+                    *Здесь обрабатывать успешный ответ*
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Client.getInstance().responseHandler("" + response.code(), "signIn",jObjError.getString("error"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
-    String dstAddress;
-    int dstPort;
-    String response = "";
-    private static final String URLserv = "https://www.netschool.app:8000/get_school_list";
+            @Override
+            public void onError(Throwable e) {
+            }
 
-    public Client(String addr, int port) {
-        dstAddress = addr;
-        dstPort = port;
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        Также нужно реализовать метод в интерфейсе
+ */
+
+public class Client{
+    private OkHttpClient okHttpClient;
+    private static APIservice apIservice;
+    private static Client instance = new Client();
+    private static final String BASE_URL = "https://www.netschool.app:8000/";
+
+    public Client() {
+        this.okHttpClient =new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
+
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl(BASE_URL)
+                .client(this.okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        apIservice = retrofit.create(APIservice.class);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    protected String doInBackground(String... arg0) {
-        if (arg0[0].equals("set")) {
-            try {
-                URL obj = null;
-                obj = new URL(URLserv);
-                HttpURLConnection con = null;
-                con = (HttpURLConnection) obj.openConnection();
-                con.setRequestMethod("GET");
-                int responseCode = 0;
-                //responseCode = con.getResponseCode();
-                BufferedReader in = null;
-                in = new BufferedReader(
-                        new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while (in != null && (inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
+    public Client(String sessionNameValue, String tokenValue) {
+        this.okHttpClient =new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .addInterceptor(chain -> {
+                    Request request = chain
+                            .request()
+                            .newBuilder()
+                            .header("SessionName", sessionNameValue)
+                            .header(sessionNameValue, tokenValue)
+                            .build();
+                    return chain.proceed(request);
+                })
+                .build();
+
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl(BASE_URL)
+                .client(this.okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        apIservice = retrofit.create(APIservice.class);
+    }
+
+    public static Client getInstance(String  sessionNameValue, String tokenValue) {
+        return new Client(sessionNameValue, tokenValue);
+    }
+
+    public static Client getInstance() {
+        return new Client();
+    }
+
+    public Observable<Response<School>> getSchoolList() {
+        return apIservice.getSchoolList();
+    }
+
+    public Observable<Response<LoginResponse>> signIn(LoginRequst loginRequst) {
+        return apIservice.signIn(loginRequst);
+    }
+
+    public void responseHandler(String responseCode, String requst, String error) {
+        switch (responseCode){
+            case "400":
+                switch (error) {
+                    case "malformed_data":
+                        Log.v(requst +":Неверный формат тела запроса (не json) или неверный тип данных (например string вместо int)");
+                        break;
+                    case "invalid_data":
+                        Log.v(requst+":Неверные данные в запросе (несуществующий id заданий, пользователей, школ в БД)");
+                        break;
+                    case "invalid_page":
+                        Log.v(requst+":Запрашиваемая страница не существует");
+                        break;
+                    case "invalid_system_type":
+                        Log.v(requst+":Невалидный тип устройства");
+                        break;
+                    case "empty_token":
+                        Log.v(requst+":Пустой токен");
+                        break;
+                    case "invalid_device_info":
+                        Log.v(requst+":Невалидная информация об устройстве");
+                        break;
+                    case "invalid_login_data":
+                        Log.v(requst+":Наверный логин или пароль");
+                        break;
+
                 }
-                in.close();
+                break;
+            case "200":
+                Log.v(requst+":Успешный запрос");
+                break;
+            case "401":
+                Log.v(requst+":Клиент не авторизован");
+                break;
+            case "402":
+                Log.v(requst+":У пользователя и у его школы нет доступа к сервису");
+                break;
+            case "404":
+                Log.v(requst+":Неверный путь запроса");
+                break;
+            case "405":
+                Log.v(requst+":Неверный метод (например, POST вместо GET для /get_school_list). GET используется в тех запросах, где не надо посылать json в теле");
+                break;
+            case "500":
+                Log.v(requst+":Фатальная ошибка на сервере");
+                break;
+            case "501":
+                Log.v(requst+":Запрос еще не реализован на сервере");
+                break;
+            case "502":
+                Log.v(requst+":Ошибка на сервере школы");
+                break;
+        }
+    }
 
-                System.out.println(response.toString());
-
-                Gson gson = new Gson();
-                Schools schools = gson.fromJson(response.toString(), Schools.class);
-
-                /* System.out.println(schools.schools.get(0).name);
-                System.out.println(schools.schools.get(0).id);
-                System.out.println(schools.schools.get(0).website);
-                System.out.println(schools.schools.get(0).shortcut);*/
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public String getSessionName(String setCookie) {
+        String sessionName = "";
+        boolean flag = true;
+        for (int i = 0; i < setCookie.length(); i++) {
+            if (setCookie.charAt(i) == ';') {
+                break;
+            }
+            if (!flag) {
+                sessionName += setCookie.charAt(i);
+            }
+            if (setCookie.charAt(i) == '=') {
+                flag = false;
             }
         }
-        return response;
+        return sessionName;
     }
 
-
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
+    public String getToken(String header, String sessionName) {
+        String token = "";
+        String buffer ="";
+        boolean flag = false;
+        for (int i = 0; i < header.length(); i++) {
+            if (header.charAt(i) == ';') {
+                break;
+            }
+            buffer += header.charAt(i);
+            if (flag) {
+                token += header.charAt(i);
+            }
+            if (buffer.equals("set-cookie: " + sessionName + "=")) {
+                flag = true;
+            }
+        }
+        return token;
     }
-
 
 }
-
-class Schools {
-    List<School> schools;
-
-    class School {
-        public int id;
-        public String name;
-        public String website;
-        public String shortcut;
-    }
-
-}
-
