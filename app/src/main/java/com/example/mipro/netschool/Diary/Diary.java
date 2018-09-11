@@ -37,7 +37,6 @@ public class Diary extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d(LOG_TAG, "Diary::onCreate");
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
         YEAR = new Year();
     }
@@ -91,6 +90,7 @@ public class Diary extends Fragment {
     @Override
     public void onResume() {
         Log.d(LOG_TAG, "DiaryList::onResume");
+        getActivity().setTitle("Дневник");
         super.onResume();
     }
 

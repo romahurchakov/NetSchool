@@ -6,5 +6,6 @@
     <color name="colorPrimaryVeryLight">#ff9275</color>
     <color name="colorPrimarySuperLight">#0a005eed</color>
     <color name="colorAccent">#0000bb</color>
+    <color name="colorGrey">#bfbfbf</color>
     <!--<color name="colorAccent">#FF4081</color>-->
 </resources>

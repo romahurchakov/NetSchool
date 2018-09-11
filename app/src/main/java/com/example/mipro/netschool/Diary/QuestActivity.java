@@ -27,7 +27,6 @@ public class QuestActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest);
-
         quest = (Quest) getIntent().getParcelableExtra("quest_info");
 
         ((TextView)findViewById(R.id.lessonWork)).setText(quest.getName());

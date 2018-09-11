@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:labelled_marquee="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        labelled_marquee:layout_editor_absoluteX="0dp"
+        labelled_marquee:layout_editor_absoluteY="0dp"
+        labelled_marquee:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/school_list_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:background="#ebebeb"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="260dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="fill_vertical"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/login_box_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30sp"
+            android:layout_marginStart="30sp"
+            android:layout_marginTop="10sp"
+            app:hasClearButton="true"
+            app:labelText="Логин">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/login_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/password_box_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30sp"
+            android:layout_marginStart="30sp"
+            android:layout_marginTop="10sp"
+            app:endIcon="@drawable/ic_remove_red_eye_black_24dp"
+            app:labelText="Пароль">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/password_sing_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <Button
+            android:id="@+id/enter_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80sp"
+            android:layout_marginStart="80sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/round_button"
+            android:text="ВОЙТИ"
+            android:textColor="#fff" />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.mipro.netschool;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.mipro.netschool.Autentification.Autentification;
 import com.example.mipro.netschool.Diary.ClientSocketHelper;
 import com.example.mipro.netschool.Diary.Diary;
 import com.example.mipro.netschool.Resources.GroupList;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_diary: {
                 ft.replace(R.id.flMAIN, new Diary());
+                ft.addToBackStack("stack");
                 ft.commit();
                 break;
             }
@@ -116,6 +119,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             default: {
+                Intent intent = new Intent(this, Autentification.class);
+                startActivity(intent);
                 Toast.makeText(this,"Unrealized feature", Toast.LENGTH_SHORT).show();
                 break;
             }
