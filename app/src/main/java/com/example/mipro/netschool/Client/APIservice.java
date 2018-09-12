@@ -3,7 +3,45 @@ package com.example.mipro.netschool.Client;
  * Лююой запрос, кроме *смотреть api*
  * делается с помощью функции:
  * T - класс, в который вы хотите обернуть ответ
- *
+ *private Disposable disposable;
+ *  private SharedPreferences mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+ *                  или
+ *  private SharedPreferences mSettings = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+ *  private void signIn(String login, String password, int id, String token, int systemType) {
+ *      disposable = Client.getInstance()
+ *      .signIn(new LoginRequst(login, password, id, token, systemType))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new DisposableObserver<Response<T>>() {
+
+            @Override
+            public void onNext(Response<T> response) {
+                if (response.isSuccessful()) {
+                    Client.getInstance().responseHandler("" + response.code(), "signIn", "");
+                    *Здесь обрабатывать успешный ответ*
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Client.getInstance().responseHandler("" + response.code(), "signIn",jObjError.getString("error"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+         Также нужно реализовать метод в интерфейсе
  *
  */
 
@@ -36,8 +74,8 @@ public interface APIservice {
     @POST("sign_in")
     Observable<Response<LoginResponse>> signIn(@Body LoginRequst loginRequst);
 
-    @POST("sign_out")
-    Observable<Response<Object>> signOut(@Header("SessionName") String kek);
+    @GET("get_posts")
+    Observable<Response<LoginResponse>> getPosts();
 
 }
 

@@ -23,6 +23,8 @@ public class NotDisturb extends Fragment {
     private SharedPreferences mSettings;
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_PREFERENCES_NOT_DISTURB = "not_disturb";
+    public static final String APP_PREFERENCES_TIMEPICKER_M = "timepicker_m";
+    public static final String APP_PREFERENCES_TIMEPICKER_H = "timepicker_h";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +60,9 @@ public class NotDisturb extends Fragment {
         if (mSettings.contains("timepicker_m") && mSettings.contains("timepicker_h")) {
             minutes = mSettings.getInt("timepicker_m", -1);
             hour = mSettings.getInt("timepicker_h", -1);
-            textView.setText("" + hour + ":" + minutes);
+            String cur_hour = hour <10? "0"+hour: ""+hour;
+            String cur_min = minutes <10? "0"+minutes: ""+minutes;
+            textView.setText("" + cur_hour + ":" + cur_min);
         }
     }
 
@@ -122,6 +126,12 @@ public class NotDisturb extends Fragment {
             @Override
             public void onClick(View view) {
                 removeIcon();
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.putInt(APP_PREFERENCES_TIMEPICKER_H, 0);
+                editor.putInt(APP_PREFERENCES_TIMEPICKER_M, 0);
+                TextView textView = getActivity().findViewById(R.id.dn_current_time);
+                textView.setText("" + "00" + ":" + "00");
+                editor.apply();
             }
         });
     }
@@ -150,10 +160,12 @@ public class NotDisturb extends Fragment {
             removeIcon();
             int cur_h = data.getIntExtra("cur_h", -1);
             int cur_m = data.getIntExtra("cur_m", -1);
+            String cur_hour = cur_h <10? "0"+cur_h: ""+cur_h;
+            String cur_min = cur_m <10? "0"+cur_m: ""+cur_m;
             ImageView imageView = getActivity().findViewById(R.id.set_nd_5);
             imageView.setVisibility(View.VISIBLE);
             TextView textView = getActivity().findViewById(R.id.dn_current_time);
-            textView.setText("" + cur_h + ":" + cur_m);
+            textView.setText("" + cur_hour + ":" + cur_min);
         }
     }
 }
