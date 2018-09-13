@@ -29,7 +29,6 @@ public class Client{
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
-                .cookieJar(new MyCookieJar())
                 .build();
 
         Retrofit retrofit = new Retrofit

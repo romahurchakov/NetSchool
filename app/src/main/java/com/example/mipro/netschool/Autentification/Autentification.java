@@ -108,7 +108,7 @@ public class Autentification extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.v("asd");
+                        Log.v(e.toString());
                     }
 
                     @Override
