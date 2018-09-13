@@ -3,7 +3,7 @@ package com.example.mipro.netschool.Client.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginRequst {
+public class LoginRequest {
 
     @SerializedName("login")
     @Expose
@@ -21,7 +21,7 @@ public class LoginRequst {
     @Expose
     private Integer systemType;
 
-    public LoginRequst(String login, String passkey, Integer id, String token, Integer systemType) {
+    public LoginRequest(String login, String passkey, Integer id, String token, Integer systemType) {
         this.login = login;
         this.passkey = passkey;
         this.id = id;

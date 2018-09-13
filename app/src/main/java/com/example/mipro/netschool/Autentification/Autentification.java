@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.mipro.netschool.Client.Client;
-import com.example.mipro.netschool.Client.Pojo.LoginRequst;
+import com.example.mipro.netschool.Client.Pojo.LoginRequest;
 import com.example.mipro.netschool.Client.Pojo.LoginResponse;
 import com.example.mipro.netschool.Client.Pojo.School;
 import com.example.mipro.netschool.Client.Pojo.School_;
@@ -58,7 +58,6 @@ public class Autentification extends AppCompatActivity {
         password = (studio.carbonylgroup.textfieldboxes.ExtendedEditText) findViewById(R.id.password_sing_in);
         enter = (Button) findViewById(R.id.enter_sign_in);
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        client = new Client();
 
         getSchoolList();
 
@@ -66,9 +65,9 @@ public class Autentification extends AppCompatActivity {
         password.setText("121212");
 
         enter.setOnClickListener(view -> {
-            if (!login.getText().toString().equals("") && !password.getText().toString().equals("")) {
-                signIn(login.getText().toString(), md5(password.getText().toString()), 1, "kek", 2);
-            }
+                    if (!login.getText().toString().equals("") && !password.getText().toString().equals("")) {
+                        signIn(login.getText().toString(), md5(password.getText().toString()), 1, "kek", 2);
+                    }
                 }
         );
 
@@ -76,8 +75,8 @@ public class Autentification extends AppCompatActivity {
     }
 
     private void signIn(String login, String password, int id, String token, int systemType) {
-        disposable = Client.getInstance()
-                .signIn(new LoginRequst(login, password, id, token, systemType))
+        disposable = Client.getInstance(this)
+                .signIn(new LoginRequest(login, password, id, token, systemType))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<LoginResponse>>() {
@@ -86,10 +85,6 @@ public class Autentification extends AppCompatActivity {
                     public void onNext(Response<LoginResponse> response) {
                         if (response.isSuccessful()) {
                             Client.getInstance().responseHandler("" + response.code(), "signIn", "");
-                            SharedPreferences.Editor editor = mSettings.edit();
-                            editor.putString(APP_PREFERENCES_SESSION_NAME, Client.getInstance().getSessionName(response.headers().get("set-cookie")));
-                            editor.putString(APP_PREFERENCES_COOKIE, Client.getInstance().getToken(response.headers().toString(), Client.getInstance().getSessionName(response.headers().get("set-cookie"))));
-                            editor.apply();
                         } else {
                             try {
                                 if (response.code() == 400) {
@@ -108,7 +103,7 @@ public class Autentification extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.v("asd");
+                        Log.v(e.getMessage());
                     }
 
                     @Override
@@ -128,7 +123,7 @@ public class Autentification extends AppCompatActivity {
                     @Override
                     public void onNext(Response<School> response) {
                         if (response.isSuccessful()) {
-                            Client.getInstance().responseHandler("" + response.code(), "getSchoolList","");
+                            Client.getInstance().responseHandler("" + response.code(), "getSchoolList", "");
                         } else {
                             try {
                                 if (response.code() == 400) {
@@ -147,7 +142,7 @@ public class Autentification extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Client.getInstance().responseHandler(e.getMessage(), "getSchoolList", "");
+                        Log.v(e.getMessage());
                     }
 
                     @Override
