@@ -1,7 +1,6 @@
 package com.example.mipro.netschool.Settings;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,11 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.mipro.netschool.Autentification.Autentification;
-import com.example.mipro.netschool.Client.APIservice;
 import com.example.mipro.netschool.Client.Client;
 import com.example.mipro.netschool.Client.Pojo.LoginResponse;
-import com.example.mipro.netschool.Client.Pojo.School;
 import com.example.mipro.netschool.Log;
 import com.example.mipro.netschool.R;
 import com.example.mipro.netschool.Settings.Push.Push;
@@ -30,20 +26,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import petrov.kristiyan.colorpicker.ColorPicker;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.mipro.netschool.MainActivity.LOG_TAG;
 
 public class Settings extends ListFragment {
     String data[] = {"Уведомление", "Push", "Не беспокоить", "Основные", "Расписание", "Цветовая схема",
@@ -57,7 +46,7 @@ public class Settings extends ListFragment {
 
     private SharedPreferences mSettings;
     private int current_color;
-    ArrayList < String > color_array;
+    ArrayList<String> color_array;
     ColorPicker colorPicker;
     private Disposable disposable;
 
@@ -78,7 +67,6 @@ public class Settings extends ListFragment {
         color_array = new ArrayList<String>();
         colorPicker = new ColorPicker(getActivity());
         initColors(color_array);
-        Log.v("kek");
     }
 
     private void initColors(ArrayList<String> array) {
@@ -157,7 +145,7 @@ public class Settings extends ListFragment {
     }
 
     private void getPosts() {
-        disposable = Client.getInstance(mSettings.getString(APP_PREFERENCES_SESSION_NAME, ""),mSettings.getString(APP_PREFERENCES_COOKIE, ""))
+        disposable = Client.getInstance(getContext())
                 .getPosts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -198,19 +186,19 @@ public class Settings extends ListFragment {
 
     void getData() {
         resource = new ArrayList<SettingsElement>();
-        resource.add(new SettingsElement("УВЕДОМЛЕНИЯ", null , -1));
-        resource.add(new SettingsElement("Push-уведомления", "kek" , 1));
-        resource.add(new SettingsElement("Не беспокоить", "kek" , 1));
-        resource.add(new SettingsElement("ОСНОВНЫЕ", null , -1));
-        resource.add(new SettingsElement("Расписание", "kek" , 1));
-        resource.add(new SettingsElement("Цветовая схема", "kek" , 1));
-        resource.add(new SettingsElement("ПАРОЛЬ", null , -1));
-        resource.add(new SettingsElement("Изменение пароля",  "kek", 1));
-        resource.add(new SettingsElement("ПОДПИСКА", null , -1));
-        resource.add(new SettingsElement("Подписка", "kek" , 1));
-        resource.add(new SettingsElement("Тех. поддержка", "kek" , 1));
-        resource.add(new SettingsElement("Оцените приложение", "kek" , 1));
-        resource.add(new SettingsElement("Политика конфиденциальности", "kek" , 1));
+        resource.add(new SettingsElement("УВЕДОМЛЕНИЯ", null, -1));
+        resource.add(new SettingsElement("Push-уведомления", "kek", 1));
+        resource.add(new SettingsElement("Не беспокоить", "kek", 1));
+        resource.add(new SettingsElement("ОСНОВНЫЕ", null, -1));
+        resource.add(new SettingsElement("Расписание", "kek", 1));
+        resource.add(new SettingsElement("Цветовая схема", "kek", 1));
+        resource.add(new SettingsElement("ПАРОЛЬ", null, -1));
+        resource.add(new SettingsElement("Изменение пароля", "kek", 1));
+        resource.add(new SettingsElement("ПОДПИСКА", null, -1));
+        resource.add(new SettingsElement("Подписка", "kek", 1));
+        resource.add(new SettingsElement("Тех. поддержка", "kek", 1));
+        resource.add(new SettingsElement("Оцените приложение", "kek", 1));
+        resource.add(new SettingsElement("Политика конфиденциальности", "kek", 1));
     }
 
     private class SettingsAdapter extends ArrayAdapter<SettingsElement> {
