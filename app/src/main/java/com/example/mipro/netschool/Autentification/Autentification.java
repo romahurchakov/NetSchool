@@ -92,8 +92,12 @@ public class Autentification extends AppCompatActivity {
                             editor.apply();
                         } else {
                             try {
-                                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Client.getInstance().responseHandler("" + response.code(), "signIn",jObjError.getString("error"));
+                                if (response.code() == 400) {
+                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    Client.getInstance().responseHandler("" + response.code(), "signIn", jObjError.getString("error"));
+                                } else {
+                                    Client.getInstance().responseHandler("" + response.code(), "signIn", "");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -127,8 +131,12 @@ public class Autentification extends AppCompatActivity {
                             Client.getInstance().responseHandler("" + response.code(), "getSchoolList","");
                         } else {
                             try {
-                                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Client.getInstance().responseHandler("" + response.code(),"getSchoolList", jObjError.getString("error"));
+                                if (response.code() == 400) {
+                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                    Client.getInstance().responseHandler("" + response.code(), "getSchoolList", jObjError.getString("error"));
+                                } else {
+                                    Client.getInstance().responseHandler("" + response.code(), "getSchoolList", "");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -148,7 +156,6 @@ public class Autentification extends AppCompatActivity {
                     }
                 });
     }
-
 
     @Override
     protected void onDestroy() {

@@ -17,50 +17,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Класс реализует общение с сервером
- * Класс содержит закомментированные версии методов запросов,
- * т.к. иначе возникают проблемы с потоками
- *  private Disposable disposable;
- *  private SharedPreferences mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
- *                  или
- *  private SharedPreferences mSettings = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
- *  private void signIn(String login, String password, int id, String token, int systemType) {
- *      disposable = Client.getInstance()
- *      .signIn(new LoginRequst(login, password, id, token, systemType))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeWith(new DisposableObserver<Response<T>>() {
-
-            @Override
-            public void onNext(Response<T> response) {
-                if (response.isSuccessful()) {
-                    Client.getInstance().responseHandler("" + response.code(), "signIn", "");
-                    *Здесь обрабатывать успешный ответ*
-                } else {
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Client.getInstance().responseHandler("" + response.code(), "signIn",jObjError.getString("error"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-
-        Также нужно реализовать метод в интерфейсе
- */
 
 public class Client{
     private OkHttpClient okHttpClient;
@@ -73,6 +29,7 @@ public class Client{
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
+                .cookieJar(new MyCookieJar())
                 .build();
 
         Retrofit retrofit = new Retrofit
@@ -91,15 +48,7 @@ public class Client{
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
-                .addInterceptor(chain -> {
-                    Request request = chain
-                            .request()
-                            .newBuilder()
-                            .header("SessionName", sessionNameValue)
-                            .header(sessionNameValue, tokenValue)
-                            .build();
-                    return chain.proceed(request);
-                })
+                .cookieJar(new MyCookieJar())
                 .build();
 
         Retrofit retrofit = new Retrofit
@@ -128,6 +77,11 @@ public class Client{
     public Observable<Response<LoginResponse>> signIn(LoginRequst loginRequst) {
         return apIservice.signIn(loginRequst);
     }
+
+    public Observable<Response<LoginResponse>> getPosts() {
+        return apIservice.getPosts();
+    }
+
 
     public void responseHandler(String responseCode, String requst, String error) {
         switch (responseCode){

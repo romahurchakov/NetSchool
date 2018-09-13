@@ -30,7 +30,6 @@ public class MyTimePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mSettings = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         timePickerDialog = new TimePickerDialog(getActivity(), timeSetListener, hour, minutes, true);
-
         return timePickerDialog;
     }
 
