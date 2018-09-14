@@ -1,6 +1,8 @@
 package com.example.mipro.netschool;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,10 +17,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.mipro.netschool.Autentification.Autentification;
+import com.example.mipro.netschool.Autentification.SchoolList;
 import com.example.mipro.netschool.Diary.ClientSocketHelper;
 import com.example.mipro.netschool.Diary.Diary;
 import com.example.mipro.netschool.Resources.GroupList;
 import com.example.mipro.netschool.Settings.Settings;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -73,7 +78,6 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         this.setTitle("NetSchool");
-
     }
 
     //    @Override
@@ -82,6 +86,12 @@ public class MainActivity extends AppCompatActivity
 //        getMenuInflater().inflate(R.menu.main, menu);
 //        return true;
 //    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -94,6 +104,7 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_diary: {
                 ft.replace(R.id.flMAIN, new Diary());
+                ft.addToBackStack("stack");
                 ft.commit();
                 break;
             }
@@ -116,7 +127,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             default: {
-                Toast.makeText(this,"Unrealized feature", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, Autentification.class);
+                startActivity(intent);
                 break;
             }
         }

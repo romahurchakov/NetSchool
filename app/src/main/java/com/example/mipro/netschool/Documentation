@@ -1,0 +1,68 @@
+*Файл для документации*
+
+1)  Запрос GET/POST
+    Пример запроса GET ( T - класс, в который оборачивается ответ)
+    Позже реализую нормальный перехватчик ошибок(в одну строчку чтобы обрабатывал, а не в 4 с if->else)
+    private void getPosts() {
+            disposable = Client.getInstance(getContext()) // Обязательно указать контекст: для fragment - getContex(), для activity - this
+                    .getPosts() // метод getPosts() реализован в APIservice
+                    // для POST запроса использовать(далее пример, смотреть APIservice)
+                    //:signIn(new LoginRequst(login, password, id, token, systemType))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<Response<T>>() {
+
+                        @Override
+                        public void onNext(Response<T> response) {
+                            if (response.isSuccessful()) {
+                                Client.getInstance().responseHandler("" + response.code(), "getPosts", "");
+                                //Здесь реализуется логика в случае успешного ответа
+                            } else {
+                                // Здесь перехватчики ошибок, не трогайте
+                                try {
+                                    if (response.code() == 400) {
+                                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                        Client.getInstance().responseHandler("" + response.code(), "getPosts", jObjError.getString("error"));
+                                    } else {
+                                        Client.getInstance().responseHandler("" + response.code(), "getPosts", "");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            //Обработчик системных ошибок
+                            //Сделаю потом нормальный обработчик, пока не вылезали такие ошибки, не могу подебажить
+                            Log.v(e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            // Если нужно выполнить действия после окончания потока данных(Response<T>) с сервера
+                            // Обычно не используется
+                        }
+                    });
+        }
+
+2) Реализация метода в APIservice.java и в Client.java
+    Пример POST с json'ом в теле (LoginResponse- POJO класс, в который оборачивается ответ
+                                  LoginRequest- POJO класс, который оборачивается в json)
+    @POST("sign_in")
+    Observable<Response<LoginResponse>> signIn(@Body LoginRequest loginRequest);
+
+    Пример GET (LoginResponse- POJO класс, в который оборачивается ответ)
+    @GET("get_posts")
+    Observable<Response<LoginResponse>> getPosts();
+
+    Метод в Client.java очень простой(на примере get_posts):
+    public Observable<Response<LoginResponse>> getPosts() {
+        return apIservice.getPosts();
+    }
+
+
+

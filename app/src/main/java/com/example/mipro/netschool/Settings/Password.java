@@ -40,6 +40,7 @@ import static com.example.mipro.netschool.MainActivity.LOG_TAG;
 
     @Override
     public void onResume() {
+        //getActivity().findViewById(R.id.pass1).requestFocus();
         super.onResume();
         final EditText editText1 = (EditText) getActivity().findViewById(R.id.pass1);
         final EditText editText2 = (EditText) getActivity().findViewById(R.id.pass2);

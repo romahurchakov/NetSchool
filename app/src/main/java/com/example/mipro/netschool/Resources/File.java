@@ -10,6 +10,7 @@ public class File implements Parcelable {
     private int image;
     private String subGroupTitle;
     private boolean isFirst;
+    private int size;
 
     File(String resources, String link, int image, boolean isFirst, String subGroupTitle) {
         this.resources = resources;
@@ -17,6 +18,7 @@ public class File implements Parcelable {
         this.image = image;
         this.isFirst = isFirst;
         this.subGroupTitle = subGroupTitle;
+        this.size = -1;
     }
 
     protected File(Parcel in) {
@@ -25,6 +27,14 @@ public class File implements Parcelable {
         image = in.readInt();
         subGroupTitle = in.readString();
         isFirst = in.readByte() != 0;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public static final Creator<File> CREATOR = new Creator<File>() {
