@@ -1,12 +1,15 @@
 package com.example.mipro.netschool.Client;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.example.mipro.netschool.Client.Pojo.LoginRequest;
 import com.example.mipro.netschool.Client.Pojo.LoginResponse;
+import com.example.mipro.netschool.Client.Pojo.Resources;
 import com.example.mipro.netschool.Client.Pojo.School;
-import com.example.mipro.netschool.Log;
+import com.example.mipro.netschool.Service.Log;
 
+import java.io.File;
 import java.net.CookieHandler;
 import java.util.concurrent.TimeUnit;
 
@@ -78,6 +81,10 @@ public class Client {
 
     public Observable<Response<School>> getSchoolList() {
         return apIservice.getSchoolList();
+    }
+
+    public Observable<Response<Resources>> getResources() {
+        return apIservice.getResources();
     }
 
     public Observable<Response<LoginResponse>> signIn(LoginRequest loginRequst) {

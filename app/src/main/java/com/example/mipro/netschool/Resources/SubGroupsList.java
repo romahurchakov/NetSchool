@@ -1,36 +1,45 @@
 package com.example.mipro.netschool.Resources;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.mipro.netschool.Client.Client;
+import com.example.mipro.netschool.Client.Pojo.Resources;
+import com.example.mipro.netschool.Service.Log;
 import com.example.mipro.netschool.R;
-import com.example.mipro.netschool.Timetable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
-import static com.example.mipro.netschool.MainActivity.LOG_TAG;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class SubGroupsList extends ListFragment {
     Group group;
     ArrayList<File> files;
     SubGroupAdapter subGroupAdapter;
+    private Disposable disposable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +60,7 @@ public class SubGroupsList extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://qaru.site/questions/694700/android-passing-objects-between-fragments"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, files.get(position).getLink());
         getActivity().startActivity(intent);
     }
 
@@ -62,14 +71,10 @@ public class SubGroupsList extends ListFragment {
     }
 
     void generationData() {
-        //Проходимся по подгруппам и формируем массив файлов, в котром первый файл в разделе
-        // имеет поле isFirst == true. У остальных isFirst == false
-
-        //доделать тут
         files = new ArrayList<File>();
         if (group.isHaveSub()) {
             for (int i = 0; i < group.getSubGroups().size(); i++) {
-                files.add(new File("special", group.getTitle(), R.drawable.ic_account_circle_black_24dp, false,  null));
+                files.add(new File("special", group.getSubGroups().get(i).getTitle(), R.drawable.ic_account_circle_black_24dp, false,  null));
                 for (int j = 0; j < group.getSubGroups().get(i).getFiles().size(); j++) {
                     files.add(group.getSubGroups().get(i).getFiles().get(j));
                 }
@@ -107,7 +112,6 @@ public class SubGroupsList extends ListFragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
 
             File file = files.get(i);
-
             if (file.getResources().equals("special")) {
                 view = getLayoutInflater().inflate(R.layout.group_name, null);
                 TextView textView = view.findViewById(R.id.group_name);
@@ -116,22 +120,11 @@ public class SubGroupsList extends ListFragment {
             } else {
                 view = getLayoutInflater().inflate(R.layout.res_list_elem, null);
                 TextView resources = view.findViewById(R.id.resources);
-                TextView link = view.findViewById(R.id.link);
                 ImageView imageView = view.findViewById(R.id.badgeOfFile);
                 resources.setText(file.getResources());
-                link.setText(file.getLink().toString());
                 imageView.setImageResource(file.getImage());
                 return view;
             }
-/*
-
-            if (file.getIsFirst()) {
-                section.setText("kek");
-            } else {
-                delete.removeAllViews();
-            }
-*/
-
 
         }
 

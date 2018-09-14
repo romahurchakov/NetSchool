@@ -15,24 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.mipro.netschool.Client.Client;
-import com.example.mipro.netschool.Client.Pojo.LoginResponse;
-import com.example.mipro.netschool.Log;
 import com.example.mipro.netschool.R;
 import com.example.mipro.netschool.Settings.Push.Push;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 import petrov.kristiyan.colorpicker.ColorPicker;
-import retrofit2.Response;
 
 public class Settings extends ListFragment {
     String data[] = {"Уведомление", "Push", "Не беспокоить", "Основные", "Расписание", "Цветовая схема",
@@ -138,51 +127,10 @@ public class Settings extends ListFragment {
             ft.addToBackStack("stack");
             ft.commit();
         } else if (position == 9) {
-            getPosts();
         } else if (position == 10) {
 
         }
     }
-
-    private void getPosts() {
-        disposable = Client.getInstance(getContext())
-                .getPosts()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<LoginResponse>>() {
-
-                    @Override
-                    public void onNext(Response<LoginResponse> response) {
-                        if (response.isSuccessful()) {
-                            Client.getInstance().responseHandler("" + response.code(), "getPosts", "");
-                        } else {
-                            try {
-                                if (response.code() == 400) {
-                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Client.getInstance().responseHandler("" + response.code(), "getPosts", jObjError.getString("error"));
-                                } else {
-                                    Client.getInstance().responseHandler("" + response.code(), "getPosts", "");
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.v("kek");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
 
     void getData() {
         resource = new ArrayList<SettingsElement>();
