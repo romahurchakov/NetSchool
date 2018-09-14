@@ -3,7 +3,9 @@ package com.example.mipro.netschool.Client.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class School_ {
+import java.io.Serializable;
+
+public class School_ implements Serializable {
 
     @SerializedName("name")
     @Expose
