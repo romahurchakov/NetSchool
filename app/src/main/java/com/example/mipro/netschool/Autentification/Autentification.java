@@ -106,16 +106,15 @@ public class Autentification extends AppCompatActivity {
                         school_box.setEnabled(true);
                         findViewById(R.id.button4).setEnabled(true);
                         if (response.isSuccessful()) {
-                            Client.getInstance().responseHandler("" + response.code(), "signIn", "");
+                            Client.getInstance().responseHandler("" + response.code(), "signIn", "", Autentification.this);
                         } else {
                             TextView textView = findViewById(R.id.error_msg);
-                            textView.setText("Ошибка ( подправлю тут)");
                             try {
                                 if (response.code() == 400) {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Client.getInstance().responseHandler("" + response.code(), "signIn", jObjError.getString("error"));
+                                    textView.setText(Client.getInstance().responseHandler("" + response.code(), "signIn", jObjError.getString("error"),Autentification.this));
                                 } else {
-                                    Client.getInstance().responseHandler("" + response.code(), "signIn", "");
+                                    textView.setText(Client.getInstance().responseHandler("" + response.code(), "signIn", "",Autentification.this));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -128,13 +127,20 @@ public class Autentification extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.v(e.getMessage());
+                        login_box.setEnabled(true);
+                        password_box.setEnabled(true);
+                        school_box.setEnabled(true);
+                        findViewById(R.id.button4).setEnabled(true);
                         findViewById(R.id.progressBar2).setVisibility(View.INVISIBLE);
                         findViewById(R.id.enter_sign_in).setEnabled(true);
+                        TextView textView = findViewById(R.id.error_msg);
+                        textView.setText("Ошибка сети");
+
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Autentification.this.onBackPressed();
                     }
                 });
     }

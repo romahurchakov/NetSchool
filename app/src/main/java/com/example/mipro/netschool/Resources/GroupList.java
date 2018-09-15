@@ -111,7 +111,7 @@ public class GroupList extends ListFragment {
     }
 
     void getRosources() {
-        disposable = Client.getInstance(getContext())
+        disposable = Client.getInstance(this.getActivity())
                 .getResources()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -120,16 +120,16 @@ public class GroupList extends ListFragment {
                     @Override
                     public void onNext(Response<Resources> response) {
                         if (response.isSuccessful()) {
-                            Client.getInstance().responseHandler("" + response.code(), "getResources", "");
+                            Client.getInstance().responseHandler("" + response.code(), "getResources", "", getContext());
                             resources = response.body();
                             getData();
                         } else {
                             try {
                                 if (response.code() == 400) {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Client.getInstance().responseHandler("" + response.code(), "getResources", jObjError.getString("error"));
+                                    Client.getInstance().responseHandler("" + response.code(), "getResources", jObjError.getString("error"),getContext());
                                 } else {
-                                    Client.getInstance().responseHandler("" + response.code(), "getResources", "");
+                                    Client.getInstance().responseHandler("" + response.code(), "getResources", "",getContext());
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -155,8 +155,10 @@ public class GroupList extends ListFragment {
     @Override
     public void onPause() {
         super.onPause();
-        this.groupAdapter.clear();
-        this.groupAdapter.notifyDataSetChanged();
+        if (groupAdapter != null) {
+            this.groupAdapter.clear();
+            this.groupAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -164,6 +166,7 @@ public class GroupList extends ListFragment {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+        getActivity().setTitle("NetSchool");
         super.onDestroy();
     }
 
