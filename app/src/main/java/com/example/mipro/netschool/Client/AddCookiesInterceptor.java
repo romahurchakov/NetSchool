@@ -1,6 +1,7 @@
 package com.example.mipro.netschool.Client;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -20,6 +21,8 @@ public class AddCookiesInterceptor implements Interceptor {
     // We're storing our stuff in a database made just for cookies called PREF_COOKIES.
     // I reccomend you do this, and don't change this default value.
     private Context context;
+    public static final String APP_PREFERENCES = "mysettings";
+    private SharedPreferences mSettings;
 
     public AddCookiesInterceptor(Context context) {
         this.context = context;
@@ -28,8 +31,8 @@ public class AddCookiesInterceptor implements Interceptor {
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-
-        HashSet<String> preferences = (HashSet<String>) PreferenceManager.getDefaultSharedPreferences(context).getStringSet(PREF_COOKIES, new HashSet<String>());
+        mSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        HashSet<String> preferences = (HashSet<String>) mSettings.getStringSet(PREF_COOKIES, new HashSet<String>());
 
         // Use the following if you need everything in one line.
         // Some APIs die if you do it differently.

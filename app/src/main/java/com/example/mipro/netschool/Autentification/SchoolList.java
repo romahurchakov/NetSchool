@@ -119,16 +119,16 @@ public class SchoolList extends AppCompatActivity {
                     @Override
                     public void onNext(Response<School> response) {
                         if (response.isSuccessful()) {
-                            Client.getInstance().responseHandler("" + response.code(), "getSchoolList", "");
+                            Client.getInstance().responseHandler("" + response.code(), "getSchoolList", "", SchoolList.this);
                             school = response.body();
                             initList();
                         } else {
                             try {
                                 if (response.code() == 400) {
                                     JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                    Client.getInstance().responseHandler("" + response.code(), "getSchoolList", jObjError.getString("error"));
+                                    Client.getInstance().responseHandler("" + response.code(), "getSchoolList", jObjError.getString("error"),SchoolList.this);
                                 } else {
-                                    Client.getInstance().responseHandler("" + response.code(), "getSchoolList", "");
+                                    Client.getInstance().responseHandler("" + response.code(), "getSchoolList", "",SchoolList.this);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -149,6 +149,12 @@ public class Settings extends ListFragment {
         resource.add(new SettingsElement("Политика конфиденциальности", "kek", 1));
     }
 
+    @Override
+    public void onDestroyView() {
+        getActivity().setTitle("NetSchool");
+        super.onDestroyView();
+    }
+
     private class SettingsAdapter extends ArrayAdapter<SettingsElement> {
         Context context;
         ArrayList<SettingsElement> resource;
