@@ -5,6 +5,7 @@ import com.example.mipro.netschool.Client.Pojo.LoginRequest;
 import com.example.mipro.netschool.Client.Pojo.LoginResponse;
 import com.example.mipro.netschool.Client.Pojo.Resources;
 import com.example.mipro.netschool.Client.Pojo.School;
+import com.example.mipro.netschool.Client.Pojo.Notification;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
@@ -25,6 +26,9 @@ public interface APIservice {
 
     @GET("get_resources")
     Observable<Response<Resources>> getResources();
+
+    @GET("get_posts")
+    Observable<Response<Notification>> getNotification();
 
 }
 

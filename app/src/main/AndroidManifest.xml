@@ -26,8 +26,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Notifications.NotificationPage"
+            android:label="notifications">
+        </activity>
+        <activity
             android:name=".Diary.QuestActivity"
             android:label="@string/label_diary" />
+        <activity
+            android:name=".Mail.MailPage"
+            android:label="mail">
+        </activity>
         <activity
             android:name=".Autentification.Autentification"
             android:theme="@style/AppTheme"

@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import com.example.mipro.netschool.Autentification.Autentification;
 import com.example.mipro.netschool.Autentification.SchoolList;
 import com.example.mipro.netschool.Diary.ClientSocketHelper;
 import com.example.mipro.netschool.Diary.Diary;
+import com.example.mipro.netschool.Mail.Mail;
+import com.example.mipro.netschool.Notifications.Notifications;
 import com.example.mipro.netschool.Resources.GroupList;
 import com.example.mipro.netschool.Settings.Settings;
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -75,6 +78,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -93,6 +104,16 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_timetable: {
                 ft.replace(R.id.flMAIN, new Timetable());
                 ft.addToBackStack("stack");
+                ft.commit();
+                break;
+            }
+            case R.id.nav_notifications: {
+                ft.replace(R.id.flMAIN, new Notifications());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_mail: {
+                ft.replace(R.id.flMAIN, new Mail());
                 ft.commit();
                 break;
             }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import com.example.mipro.netschool.Autentification.Autentification;
 import com.example.mipro.netschool.Client.Pojo.LoginRequest;
 import com.example.mipro.netschool.Client.Pojo.LoginResponse;
+import com.example.mipro.netschool.Client.Pojo.Notification;
 import com.example.mipro.netschool.Client.Pojo.Resources;
 import com.example.mipro.netschool.Client.Pojo.School;
 import com.example.mipro.netschool.Service.Log;
@@ -88,6 +89,11 @@ public class Client {
     public Observable<Response<Resources>> getResources() {
         return apIservice.getResources();
     }
+
+    public Observable<Response<Notification>> getNotification() {
+        return apIservice.getNotification();
+    }
+
 
     public Observable<Response<LoginResponse>> signIn(LoginRequest loginRequst) {
         return apIservice.signIn(loginRequst);
