@@ -7,5 +7,8 @@
     <color name="colorPrimarySuperLight">#0a005eed</color>
     <color name="colorAccent">#0000bb</color>
     <color name="colorGrey">#bfbfbf</color>
+    <color name="background_start">#fffcf9</color>
+    <color name="space_start">#ffe9d9</color>
+    <color name="colorIcons">#979797</color>
     <!--<color name="colorAccent">#FF4081</color>-->
 </resources>

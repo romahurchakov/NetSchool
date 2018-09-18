@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarStyle="outsideOverlay"
+    android:background="@color/space_start"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/background_start"
+            android:background="@drawable/rounded_corner"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="9"
+                android:text="Выберите школу" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
+        </LinearLayout>
+
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:panelBackgroundColor="@color/background_start"
+            app:endIcon="@drawable/ic_clear_circle_black_24dp"
+            app:labelText="Логин"
+            app:primaryColor="#ec5e3c">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:hasFocus="true"
+            app:panelBackgroundColor="@color/background_start"
+            app:endIcon="@drawable/ic_visibility_black_24dp"
+            app:isResponsiveIconColor="true"
+            app:labelText="Пароль"
+            app:primaryColor="#ec5e3c">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="18sp" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <Button
+            android:id="@+id/clear_icon_button"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Войти"
+            android:textColor="#ffffff" />
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
