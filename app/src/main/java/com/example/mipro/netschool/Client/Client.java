@@ -41,7 +41,7 @@ public class Client {
                 .readTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(new AddCookiesInterceptor(context))
                 .addInterceptor(new ReceivedCookiesInterceptor(context))
-                .build();
+
 
         Retrofit retrofit = new Retrofit
                 .Builder()
